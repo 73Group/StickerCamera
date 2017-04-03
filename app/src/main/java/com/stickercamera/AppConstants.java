@@ -14,6 +14,7 @@ public class AppConstants {
     public static final int    POST_TYPE_POI              = 1;
     public static final int    POST_TYPE_TAG              = 0;
     public static final int    POST_TYPE_RECORD           = 2;
+    public static final int    POST_TYPE_LINK             = 3;
     public static final int    POST_TYPE_DEFAULT		  = 0;
 
 

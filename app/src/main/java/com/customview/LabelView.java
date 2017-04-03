@@ -62,6 +62,8 @@ public class LabelView extends LinearLayout {
             labelIcon.setImageResource(R.drawable.point_poi);
         } else if (tagItem.getType() == AppConstants.POST_TYPE_RECORD) {
             labelIcon.setImageResource(R.drawable.ic_record_voice_over_white_24dp);
+        } else if (tagItem.getType() == AppConstants.POST_TYPE_LINK) {
+            labelIcon.setImageResource(R.drawable.ic_link_white_24dp);
         }
     }
 

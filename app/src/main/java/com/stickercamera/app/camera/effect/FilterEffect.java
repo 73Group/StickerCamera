@@ -13,10 +13,7 @@ public class FilterEffect  {
     private GPUImageFilterTools.FilterType type;
     private int        degree;
 
-    /**
-     * @param title
-     * @param uri
-     */
+
     public FilterEffect(String title, GPUImageFilterTools.FilterType type, int degree) {
         this.type = type;
         this.degree = degree;

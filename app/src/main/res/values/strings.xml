@@ -6,4 +6,5 @@
     <string name="label_selector_record">录音</string>
     <string name="label_selector_location">位置</string>
     <string name="label_selector_tip">心情</string>
+    <string name="label_selector_link">链接</string>
 </resources>

@@ -5,41 +5,68 @@
     android:layout_height="fill_parent"
     android:background="#78000000"
     android:gravity="center"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <TextView
-        android:text="@string/label_selector_tip"
-        android:background="@drawable/round_bg_gray"
-        android:id="@+id/tv_tag_tip"
-        android:gravity="center"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="16dip"
-        android:drawablePadding="10dp"
-        android:drawableTop="@drawable/ic_message_white_24dp"/>
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/label_selector_tip"
+            android:background="@drawable/round_bg_gray"
+            android:id="@+id/tv_tag_tip"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="16dip"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/ic_message_white_24dp"/>
 
-    <TextView
-        android:text="@string/label_selector_location"
-        android:background="@drawable/round_bg_gray"
-        android:id="@+id/tv_tag_address"
-        android:gravity="center"
-        android:layout_width="wrap_content"
+        <TextView
+            android:text="@string/label_selector_location"
+            android:background="@drawable/round_bg_gray"
+            android:id="@+id/tv_tag_address"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="16dip"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/ic_location_white_24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="16dip"
-        android:drawablePadding="10dp"
-        android:drawableTop="@drawable/ic_location_white_24dp"/>
-    <TextView
-        android:text="@string/label_selector_record"
-        android:background="@drawable/round_bg_gray"
-        android:id="@+id/tv_tag_record"
         android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="16dip"
-        android:drawablePadding="10dp"
-        android:drawableTop="@drawable/ic_record_voice_over_white_24dp"/>
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/label_selector_record"
+            android:background="@drawable/round_bg_gray"
+            android:id="@+id/tv_tag_record"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="16dip"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/ic_record_voice_over_white_24dp"/>
+
+        <TextView
+            android:text="@string/label_selector_link"
+            android:background="@drawable/round_bg_gray"
+            android:id="@+id/tv_tag_link"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="16dip"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/ic_link_white_24dp"/>
+    </LinearLayout>
+
+
 
 </LinearLayout>
