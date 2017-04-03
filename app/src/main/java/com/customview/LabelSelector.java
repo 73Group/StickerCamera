@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.skykai.stickercamera.R;
 
@@ -17,8 +18,9 @@ import com.github.skykai.stickercamera.R;
  */
 public class LabelSelector extends LinearLayout {
 
-    private ImageView txtLabelBtn;
-    private ImageView addrLabelBtn;
+    private TextView txtLabelBtn;
+    private TextView addrLabelBtn;
+    private TextView recordLabelBtn;
 
     public LabelSelector(Context context) {
         this(context,null);
@@ -27,8 +29,9 @@ public class LabelSelector extends LinearLayout {
     public LabelSelector(Context context, AttributeSet attr) {
         super(context, attr);
         LayoutInflater.from(context).inflate(R.layout.view_label_layout, this);
-        txtLabelBtn = (ImageView) findViewById(R.id.iv_tag_tip);
-        addrLabelBtn = (ImageView) findViewById(R.id.iv_tag_address);
+        txtLabelBtn = (TextView) findViewById(R.id.tv_tag_tip);
+        addrLabelBtn = (TextView) findViewById(R.id.tv_tag_address);
+        recordLabelBtn = (TextView) findViewById(R.id.tv_tag_record);
     }
 
     public void setTxtClicked(OnClickListener listener) {
@@ -39,11 +42,16 @@ public class LabelSelector extends LinearLayout {
         addrLabelBtn.setOnClickListener(listener);
     }
 
-    public float getmLastTouchX() {
+    public void setRecordClicked(OnClickListener listener) {
+        recordLabelBtn.setOnClickListener(listener);
+    }
+
+
+    public float getLastTouchX() {
         return mLastTouchX;
     }
 
-    public float getmLastTouchY() {
+    public float getLastTouchY() {
         return mLastTouchY;
     }
 

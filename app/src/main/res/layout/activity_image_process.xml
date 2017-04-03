@@ -44,7 +44,7 @@
             <it.sephiroth.android.library.widget.HListView
                 android:id="@+id/list_tools"
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:background="@color/common_background"
                 android:gravity="center_vertical"
                 android:overScrollMode="always"
@@ -55,7 +55,7 @@
 
     <LinearLayout
         android:id="@+id/btn_area"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/blue"
         android:orientation="horizontal" >
@@ -63,7 +63,7 @@
         <TextView
             android:id="@+id/sticker_btn"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="贴纸"
@@ -73,7 +73,7 @@
         <TextView
             android:id="@+id/filter_btn"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="滤镜"
@@ -83,7 +83,7 @@
         <TextView
             android:id="@+id/text_btn"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="标签"

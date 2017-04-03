@@ -7,18 +7,39 @@
     android:gravity="center"
     android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/iv_tag_tip"
+    <TextView
+        android:text="@string/label_selector_tip"
+        android:background="@drawable/round_bg_gray"
+        android:id="@+id/tv_tag_tip"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/tip" />
+        android:layout_margin="10dp"
+        android:padding="16dip"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/ic_message_white_24dp"/>
 
-    <ImageView
-        android:id="@+id/iv_tag_address"
+    <TextView
+        android:text="@string/label_selector_location"
+        android:background="@drawable/round_bg_gray"
+        android:id="@+id/tv_tag_address"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:padding="10.0dip"
-        android:src="@drawable/position" />
+        android:layout_margin="10dp"
+        android:padding="16dip"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/ic_location_white_24dp"/>
+    <TextView
+        android:text="@string/label_selector_record"
+        android:background="@drawable/round_bg_gray"
+        android:id="@+id/tv_tag_record"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="16dip"
+        android:drawablePadding="10dp"
+        android:drawableTop="@drawable/ic_record_voice_over_white_24dp"/>
 
 </LinearLayout>
