@@ -21,8 +21,8 @@ import com.common.util.StringUtils;
 import com.common.util.TimeUtils;
 import com.customview.LabelSelector;
 import com.customview.LabelView;
-import com.customview.MyHighlightView;
-import com.customview.MyImageViewDrawableOverlay;
+import com.customview.HighlightView;
+import com.customview.ImageViewDrawableOverlay;
 import com.github.skykai.stickercamera.R;
 import com.stickercamera.App;
 import com.stickercamera.AppConstants;
@@ -76,7 +76,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
     HListView bottomToolBar;
     @InjectView(R.id.toolbar_area)
     ViewGroup toolArea;
-    private MyImageViewDrawableOverlay mImageView;
+    private ImageViewDrawableOverlay mImageView;
     private LabelSelector labelSelector;
 
     //当前选择底部按钮
@@ -123,7 +123,7 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         //添加贴纸水印的画布
         View overlay = LayoutInflater.from(PhotoProcessActivity.this).inflate(
                 R.layout.view_drawable_overlay, null);
-        mImageView = (MyImageViewDrawableOverlay) overlay.findViewById(R.id.drawable_overlay);
+        mImageView = (ImageViewDrawableOverlay) overlay.findViewById(R.id.drawable_overlay);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(App.getApp().getScreenWidth(),
                 App.getApp().getScreenWidth());
         mImageView.setLayoutParams(params);
@@ -188,11 +188,18 @@ public class PhotoProcessActivity extends CameraBaseActivity {
 
         });
         labelSelector.setTxtClicked(v -> {
-            EditTextActivity.openTextEdit(PhotoProcessActivity.this,"",8, AppConstants.ACTION_EDIT_LABEL);
+            EditTextActivity.openTextEdit(PhotoProcessActivity.this,"",10, AppConstants.ACTION_EDIT_LABEL);
         });
         labelSelector.setAddrClicked(v -> {
-            EditTextActivity.openTextEdit(PhotoProcessActivity.this,"",8, AppConstants.ACTION_EDIT_LABEL_POI);
+            EditTextActivity.openTextEdit(PhotoProcessActivity.this,"",10, AppConstants.ACTION_EDIT_LABEL_POI);
 
+        });
+        labelSelector.setRecordClicked(v -> {
+            Toast.makeText(this, R.string.label_selector_record, Toast.LENGTH_LONG).show();
+        });
+
+        labelSelector.setLinkClicked(v -> {
+            Toast.makeText(this, R.string.label_selector_link, Toast.LENGTH_LONG).show();
         });
         mImageView.setOnDrawableEventListener(wpEditListener);
         mImageView.setSingleTapListener(()->{
@@ -288,22 +295,22 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         addLabel(tagItem);
     }
 
-    private MyImageViewDrawableOverlay.OnDrawableEventListener wpEditListener   = new MyImageViewDrawableOverlay.OnDrawableEventListener() {
+    private ImageViewDrawableOverlay.OnDrawableEventListener wpEditListener   = new ImageViewDrawableOverlay.OnDrawableEventListener() {
         @Override
-        public void onMove(MyHighlightView view) {
+        public void onMove(HighlightView view) {
         }
 
         @Override
-        public void onFocusChange(MyHighlightView newFocus, MyHighlightView oldFocus) {
+        public void onFocusChange(HighlightView newFocus, HighlightView oldFocus) {
         }
 
         @Override
-        public void onDown(MyHighlightView view) {
+        public void onDown(HighlightView view) {
 
         }
 
         @Override
-        public void onClick(MyHighlightView view) {
+        public void onClick(HighlightView view) {
             labelSelector.hide();
         }
 

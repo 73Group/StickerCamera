@@ -11,10 +11,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.common.util.ImageUtils;
 import com.customview.LabelView;
-import com.customview.MyHighlightView;
-import com.customview.MyImageViewDrawableOverlay;
+import com.customview.HighlightView;
+import com.customview.ImageViewDrawableOverlay;
 import com.customview.drawable.StickerDrawable;
 import com.github.skykai.stickercamera.R;
 import com.imagezoom.ImageViewTouch;
@@ -32,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class EffectUtil {
 
     public static List<Addon> addonList                 = new ArrayList<Addon>();
-    private static List<MyHighlightView> hightlistViews = new CopyOnWriteArrayList<MyHighlightView>();
+    private static List<HighlightView> hightlistViews = new CopyOnWriteArrayList<HighlightView>();
 
     static {
         addonList.add(new Addon(R.drawable.sticker1));
@@ -55,9 +54,9 @@ public class EffectUtil {
     }
 
     //添加贴纸
-    public static MyHighlightView addStickerImage(final ImageViewTouch processImage,
-                                                  Context context, final Addon sticker,
-                                                  final StickerCallback callback) {
+    public static HighlightView addStickerImage(final ImageViewTouch processImage,
+                                                Context context, final Addon sticker,
+                                                final StickerCallback callback) {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), sticker.getId());
         if (bitmap == null) {
             return null;
@@ -66,16 +65,16 @@ public class EffectUtil {
         drawable.setAntiAlias(true);
         drawable.setMinSize(30, 30);
 
-        final MyHighlightView hv = new MyHighlightView(processImage, R.style.AppTheme, drawable);
+        final HighlightView hv = new HighlightView(processImage, R.style.AppTheme, drawable);
         //设置贴纸padding
         hv.setPadding(10);
-        hv.setOnDeleteClickListener(new MyHighlightView.OnDeleteClickListener() {
+        hv.setOnDeleteClickListener(new HighlightView.OnDeleteClickListener() {
 
             @Override
             public void onDeleteClick() {
-                ((MyImageViewDrawableOverlay) processImage).removeHightlightView(hv);
+                ((ImageViewDrawableOverlay) processImage).removeHightlightView(hv);
                 hightlistViews.remove(hv);
-                ((MyImageViewDrawableOverlay) processImage).invalidate();
+                ((ImageViewDrawableOverlay) processImage).invalidate();
                 callback.onRemoveSticker(sticker);
             }
         });
@@ -138,15 +137,15 @@ public class EffectUtil {
 
         hv.setup(context, mImageMatrix, imageRect, cropRect, false);
 
-        ((MyImageViewDrawableOverlay) processImage).addHighlightView(hv);
-        ((MyImageViewDrawableOverlay) processImage).setSelectedHighlightView(hv);
+        ((ImageViewDrawableOverlay) processImage).addHighlightView(hv);
+        ((ImageViewDrawableOverlay) processImage).setSelectedHighlightView(hv);
         hightlistViews.add(hv);
         return hv;
     }
 
 
     //----添加标签-----
-    public static void addLabelEditable(MyImageViewDrawableOverlay overlay, ViewGroup container,
+    public static void addLabelEditable(ImageViewDrawableOverlay overlay, ViewGroup container,
                                         LabelView label, int left, int top) {
         addLabel(container, label, left, top);
         addLabel2Overlay(overlay, label);
@@ -156,7 +155,7 @@ public class EffectUtil {
         label.addTo(container, left, top);
     }
 
-    public static void removeLabelEditable(MyImageViewDrawableOverlay overlay, ViewGroup container,
+    public static void removeLabelEditable(ImageViewDrawableOverlay overlay, ViewGroup container,
                                            LabelView label) {
         container.removeView(label);
         overlay.removeLabel(label);
@@ -179,7 +178,7 @@ public class EffectUtil {
      * @param overlay
      * @param label
      */
-    private static void addLabel2Overlay(final MyImageViewDrawableOverlay overlay,
+    private static void addLabel2Overlay(final ImageViewDrawableOverlay overlay,
                                          final LabelView label) {
         //添加事件，触摸生效
         overlay.addLabel(label);
@@ -200,12 +199,12 @@ public class EffectUtil {
 
     //添加水印
     public static void applyOnSave(Canvas mCanvas, ImageViewTouch processImage) {
-        for (MyHighlightView view : hightlistViews) {
+        for (HighlightView view : hightlistViews) {
             applyOnSave(mCanvas, processImage, view);
         }
     }
 
-    private static void applyOnSave(Canvas mCanvas, ImageViewTouch processImage,MyHighlightView view) {
+    private static void applyOnSave(Canvas mCanvas, ImageViewTouch processImage,HighlightView view) {
 
         if (view != null && view.getContent() instanceof StickerDrawable) {
 

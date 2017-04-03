@@ -22,25 +22,25 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
-public class MyImageViewDrawableOverlay extends ImageViewTouch {
+public class ImageViewDrawableOverlay extends ImageViewTouch {
 
-    public static interface OnDrawableEventListener {
-        void onFocusChange(MyHighlightView newFocus, MyHighlightView oldFocus);
+    public interface OnDrawableEventListener {
+        void onFocusChange(HighlightView newFocus, HighlightView oldFocus);
 
-        void onDown(MyHighlightView view);
+        void onDown(HighlightView view);
 
-        void onMove(MyHighlightView view);
+        void onMove(HighlightView view);
 
-        void onClick(MyHighlightView view);
+        void onClick(HighlightView view);
 
         //标签的点击事件处理
         void onClick(LabelView label);
     };
 
     //删除的时候会出错
-    private List<MyHighlightView>   mOverlayViews         = new CopyOnWriteArrayList<MyHighlightView>();
+    private List<HighlightView>   mOverlayViews         = new CopyOnWriteArrayList<HighlightView>();
 
-    private MyHighlightView         mOverlayView;
+    private HighlightView mOverlayView;
 
     private OnDrawableEventListener mDrawableListener;
 
@@ -62,8 +62,8 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     /**
      * 用于感知label被点击了
      * @param label
-     * @param locationX
-     * @param locationY
+     * @param eventRawX
+     * @param eventRawY
      */
     //贴纸在上面进行操作
     public void setCurrentLabel(LabelView label, float eventRawX, float eventRawY) {
@@ -109,7 +109,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
                                                 + Math.abs(upY - downLabelY)
                                                 * Math.abs(upY - downLabelY));//两点之间的距离
                     if (distance < 15) { // 距离较小，当作click事件来处理
-                        if(mDrawableListener!=null){
+                        if(mDrawableListener != null){
                             mDrawableListener.onClick(currentLabel);
                         }
                     }
@@ -125,17 +125,17 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
 
     /************************[END]贴纸处理**********************/
 
-    public MyImageViewDrawableOverlay(Context context) {
+    public ImageViewDrawableOverlay(Context context) {
         super(context);
         //setScrollEnabled(false);
     }
 
-    public MyImageViewDrawableOverlay(Context context, AttributeSet attrs) {
+    public ImageViewDrawableOverlay(Context context, AttributeSet attrs) {
         super(context, attrs);
         //setScrollEnabled(false);
     }
 
-    public MyImageViewDrawableOverlay(Context context, AttributeSet attrs, int defStyle) {
+    public ImageViewDrawableOverlay(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         //setScrollEnabled(false);
     }
@@ -198,9 +198,9 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
 
         if (getDrawable() != null) {
 
-            Iterator<MyHighlightView> iterator = mOverlayViews.iterator();
+            Iterator<HighlightView> iterator = mOverlayViews.iterator();
             while (iterator.hasNext()) {
-                MyHighlightView view = iterator.next();
+                HighlightView view = iterator.next();
                 view.getMatrix().set(getImageMatrix());
                 view.invalidate();
             }
@@ -211,9 +211,9 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     public void postTranslate(float deltaX, float deltaY) {
         super.postTranslate(deltaX, deltaY);
 
-        Iterator<MyHighlightView> iterator = mOverlayViews.iterator();
+        Iterator<HighlightView> iterator = mOverlayViews.iterator();
         while (iterator.hasNext()) {
-            MyHighlightView view = iterator.next();
+            HighlightView view = iterator.next();
             if (getScale() != 1) {
                 float[] mvalues = new float[9];
                 getImageMatrix().getValues(mvalues);
@@ -232,13 +232,13 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     protected void postScale(float scale, float centerX, float centerY) {
 
         if (mOverlayViews.size() > 0) {
-            Iterator<MyHighlightView> iterator = mOverlayViews.iterator();
+            Iterator<HighlightView> iterator = mOverlayViews.iterator();
 
             Matrix oldMatrix = new Matrix(getImageViewMatrix());
             super.postScale(scale, centerX, centerY);
 
             while (iterator.hasNext()) {
-                MyHighlightView view = iterator.next();
+                HighlightView view = iterator.next();
 
                 if (!mScaleWithContent) {
                     RectF cropRect = view.getCropRectF();
@@ -266,7 +266,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         }
     }
 
-    private void ensureVisible(MyHighlightView hv, float deltaX, float deltaY) {
+    private void ensureVisible(HighlightView hv, float deltaX, float deltaY) {
         RectF r = hv.getDrawRect();
         int panDeltaX1 = 0, panDeltaX2 = 0;
         int panDeltaY1 = 0, panDeltaY2 = 0;
@@ -294,9 +294,9 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     public boolean onSingleTapConfirmed(MotionEvent e) {
 
         // iterate the items and post a single tap event to the selected item
-        Iterator<MyHighlightView> iterator = mOverlayViews.iterator();
+        Iterator<HighlightView> iterator = mOverlayViews.iterator();
         while (iterator.hasNext()) {
-            MyHighlightView view = iterator.next();
+            HighlightView view = iterator.next();
             if (view.isSelected()) {
                 view.onSingleTapConfirmed(e.getX(), e.getY());
                 postInvalidate();
@@ -314,8 +314,8 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         mLastMotionScrollY = e.getY();
 
         // return the item being clicked
-        MyHighlightView newSelection = checkSelection(e);
-        MyHighlightView realNewSelection = newSelection;
+        HighlightView newSelection = checkSelection(e);
+        HighlightView realNewSelection = newSelection;
 
         if (newSelection == null && mOverlayViews.size() == 1 && mForceSingleSelection) {
             // force a selection if none is selected, when force single selection is
@@ -366,10 +366,10 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         if (mOverlayView != null) {
             //通过触摸区域得到Mode
             int edge = mOverlayView.getHit(e.getX(), e.getY());
-            if (edge != MyHighlightView.NONE) {
-                mOverlayView.setMode((edge == MyHighlightView.MOVE) ? MyHighlightView.MOVE
-                    : (edge == MyHighlightView.ROTATE ? MyHighlightView.ROTATE
-                        : MyHighlightView.GROW));
+            if (edge != HighlightView.NONE) {
+                mOverlayView.setMode((edge == HighlightView.MOVE) ? HighlightView.MOVE
+                    : (edge == HighlightView.ROTATE ? HighlightView.ROTATE
+                        : HighlightView.GROW));
                 postInvalidate();
                 if (mDrawableListener != null) {
                     mDrawableListener.onDown(mOverlayView);
@@ -393,7 +393,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         Log.i(LOG_TAG, "onUp");
 
         if (mOverlayView != null) {
-            mOverlayView.setMode(MyHighlightView.NONE);
+            mOverlayView.setMode(HighlightView.NONE);
             postInvalidate();
         }
         return super.onUp(e);
@@ -406,14 +406,14 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         if (mOverlayView != null) {
 
             int edge = mOverlayView.getHit(e.getX(), e.getY());
-            if ((edge & MyHighlightView.MOVE) == MyHighlightView.MOVE) {
+            if ((edge & HighlightView.MOVE) == HighlightView.MOVE) {
                 if (mDrawableListener != null) {
                     mDrawableListener.onClick(mOverlayView);
                 }
                 return true;
             }
 
-            mOverlayView.setMode(MyHighlightView.NONE);
+            mOverlayView.setMode(HighlightView.NONE);
             postInvalidate();
 
             Log.d(LOG_TAG, "selected items: " + mOverlayViews.size());
@@ -450,7 +450,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         mLastMotionScrollX = x;
         mLastMotionScrollY = y;
 
-        if (mOverlayView != null && mOverlayView.getMode() != MyHighlightView.NONE) {
+        if (mOverlayView != null && mOverlayView.getMode() != HighlightView.NONE) {
             mOverlayView.onMouseMove(mOverlayView.getMode(), e2, -dx, -dy);
             postInvalidate();
 
@@ -458,7 +458,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
                 mDrawableListener.onMove(mOverlayView);
             }
 
-            if (mOverlayView.getMode() == MyHighlightView.MOVE) {
+            if (mOverlayView.getMode() == HighlightView.MOVE) {
                 if (!mScaleWithContent) {
                     ensureVisible(mOverlayView, distanceX, distanceY);
                 }
@@ -473,7 +473,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         Log.i(LOG_TAG, "onFling");
 
-        if (mOverlayView != null && mOverlayView.getMode() != MyHighlightView.NONE)
+        if (mOverlayView != null && mOverlayView.getMode() != HighlightView.NONE)
             return false;
         return super.onFling(e1, e2, velocityX, velocityY);
     }
@@ -487,7 +487,7 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         for (int i = 0; i < mOverlayViews.size(); i++) {
             canvas.save(Canvas.MATRIX_SAVE_FLAG);
 
-            MyHighlightView current = mOverlayViews.get(i);
+            HighlightView current = mOverlayViews.get(i);
             current.draw(canvas);
 
             // check if we should invalidate again the canvas
@@ -517,13 +517,13 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         Log.i(LOG_TAG, "clearOverlays");
         setSelectedHighlightView(null);
         while (mOverlayViews.size() > 0) {
-            MyHighlightView hv = mOverlayViews.remove(0);
+            HighlightView hv = mOverlayViews.remove(0);
             hv.dispose();
         }
         mOverlayView = null;
     }
 
-    public boolean addHighlightView(MyHighlightView hv) {
+    public boolean addHighlightView(HighlightView hv) {
         for (int i = 0; i < mOverlayViews.size(); i++) {
             if (mOverlayViews.get(i).equals(hv))
                 return false;
@@ -542,15 +542,15 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         return mOverlayViews.size();
     }
 
-    public MyHighlightView getHighlightViewAt(int index) {
+    public HighlightView getHighlightViewAt(int index) {
         return mOverlayViews.get(index);
     }
 
-    public boolean removeHightlightView(MyHighlightView view) {
+    public boolean removeHightlightView(HighlightView view) {
         Log.i(LOG_TAG, "removeHightlightView");
         for (int i = 0; i < mOverlayViews.size(); i++) {
             if (mOverlayViews.get(i).equals(view)) {
-                MyHighlightView hv = mOverlayViews.remove(i);
+                HighlightView hv = mOverlayViews.remove(i);
                 if (hv.equals(mOverlayView)) {
                     setSelectedHighlightView(null);
                 }
@@ -567,18 +567,18 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         super.onZoomAnimationCompleted(scale);
 
         if (mOverlayView != null) {
-            mOverlayView.setMode(MyHighlightView.MOVE);
+            mOverlayView.setMode(HighlightView.MOVE);
             postInvalidate();
         }
     }
 
-    public MyHighlightView getSelectedHighlightView() {
+    public HighlightView getSelectedHighlightView() {
         return mOverlayView;
     }
 
     public void commit(Canvas canvas) {
 
-        MyHighlightView hv;
+        HighlightView hv;
         for (int i = 0; i < getHighlightCount(); i++) {
             hv = getHighlightViewAt(i);
             FeatherDrawable content = hv.getContent();
@@ -597,22 +597,22 @@ public class MyImageViewDrawableOverlay extends ImageViewTouch {
         }
     }
 
-    private MyHighlightView checkSelection(MotionEvent e) {
-        Iterator<MyHighlightView> iterator = mOverlayViews.iterator();
-        MyHighlightView selection = null;
+    private HighlightView checkSelection(MotionEvent e) {
+        Iterator<HighlightView> iterator = mOverlayViews.iterator();
+        HighlightView selection = null;
         while (iterator.hasNext()) {
-            MyHighlightView view = iterator.next();
+            HighlightView view = iterator.next();
             int edge = view.getHit(e.getX(), e.getY());
-            if (edge != MyHighlightView.NONE) {
+            if (edge != HighlightView.NONE) {
                 selection = view;
             }
         }
         return selection;
     }
 
-    public void setSelectedHighlightView(MyHighlightView newView) {
+    public void setSelectedHighlightView(HighlightView newView) {
 
-        final MyHighlightView oldView = mOverlayView;
+        final HighlightView oldView = mOverlayView;
 
         if (mOverlayView != null && !mOverlayView.equals(newView)) {
             mOverlayView.setSelected(false);

@@ -23,9 +23,9 @@ import com.stickercamera.app.camera.util.Point2D;
 import com.stickercamera.app.camera.util.UIUtils;
 
 
-public class MyHighlightView implements EditableDrawable.OnSizeChange {
+public class HighlightView implements EditableDrawable.OnSizeChange {
 
-    static final String LOG_TAG = "drawable-view";
+    static final String LOG_TAG = "HighlightView";
 
     public static enum AlignModeV {
         Top, Bottom, Center
@@ -116,7 +116,7 @@ public class MyHighlightView implements EditableDrawable.OnSizeChange {
         }
     }
 
-    public MyHighlightView(ImageView context, int styleId, FeatherDrawable content) {
+    public HighlightView(ImageView context, int styleId, FeatherDrawable content) {
         mContent = content;
 
         if (content instanceof EditableDrawable) {

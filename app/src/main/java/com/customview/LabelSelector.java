@@ -21,6 +21,7 @@ public class LabelSelector extends LinearLayout {
     private TextView txtLabelBtn;
     private TextView addrLabelBtn;
     private TextView recordLabelBtn;
+    private TextView linkLabelBtn;
 
     public LabelSelector(Context context) {
         this(context,null);
@@ -32,6 +33,7 @@ public class LabelSelector extends LinearLayout {
         txtLabelBtn = (TextView) findViewById(R.id.tv_tag_tip);
         addrLabelBtn = (TextView) findViewById(R.id.tv_tag_address);
         recordLabelBtn = (TextView) findViewById(R.id.tv_tag_record);
+        linkLabelBtn = (TextView) findViewById(R.id.tv_tag_link);
     }
 
     public void setTxtClicked(OnClickListener listener) {
@@ -44,6 +46,10 @@ public class LabelSelector extends LinearLayout {
 
     public void setRecordClicked(OnClickListener listener) {
         recordLabelBtn.setOnClickListener(listener);
+    }
+
+    public void setLinkClicked(OnClickListener listener) {
+        linkLabelBtn.setOnClickListener(listener);
     }
 
 
