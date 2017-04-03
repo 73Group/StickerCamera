@@ -1,7 +1,5 @@
 package com.customview;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -62,6 +60,8 @@ public class LabelView extends LinearLayout {
         labelTxtRight.setText(tagItem.getName());
         if (tagItem.getType() == AppConstants.POST_TYPE_POI) {
             labelIcon.setImageResource(R.drawable.point_poi);
+        } else if (tagItem.getType() == AppConstants.POST_TYPE_RECORD) {
+            labelIcon.setImageResource(R.drawable.ic_record_voice_over_white_24dp);
         }
     }
 

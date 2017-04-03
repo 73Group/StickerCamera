@@ -4,18 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +24,6 @@ import com.customview.LabelView;
 import com.customview.MyHighlightView;
 import com.customview.MyImageViewDrawableOverlay;
 import com.github.skykai.stickercamera.R;
-import com.imagezoom.ImageViewTouch;
 import com.stickercamera.App;
 import com.stickercamera.AppConstants;
 import com.stickercamera.app.camera.CameraBaseActivity;
@@ -211,8 +205,8 @@ public class PhotoProcessActivity extends CameraBaseActivity {
         });
         labelSelector.setOnClickListener(v -> {
             labelSelector.hide();
-            emptyLabelView.updateLocation((int) labelSelector.getmLastTouchX(),
-                    (int) labelSelector.getmLastTouchY());
+            emptyLabelView.updateLocation((int) labelSelector.getLastTouchX(),
+                    (int) labelSelector.getLastTouchY());
             emptyLabelView.setVisibility(View.VISIBLE);
         });
 
